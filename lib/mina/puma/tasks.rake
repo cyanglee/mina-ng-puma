@@ -156,7 +156,8 @@ namespace :puma do
           fi
         fi
         sleep 1
-        times=$[$times -1]
+        # times=$[$times -1]
+        times=$((times - 1))
       done
 
       if [ $started_flag == false ]; then
@@ -177,7 +178,8 @@ namespace :puma do
         if [ -e "#{fetch(:puma_pid)}" ]; then
           #echo ">>> sleep 1"
           sleep 1
-          times=$[$times -1]
+          # times=$[$times -1]
+          times=$((times - 1))
         else
           quit_flag=true
           break
@@ -195,7 +197,7 @@ namespace :puma do
         while [ $force_times -gt 0 ]; do
           if [ -e "#{fetch(:puma_pid)}" ] && kill -0 $(cat "#{fetch(:puma_pid)}") 2> /dev/null; then
             sleep 1
-            force_times=$[$force_times -1]
+            force_times=$((force_times - 1))
           else
             force_quit_flag=true
             echo "Force quit successfully"
