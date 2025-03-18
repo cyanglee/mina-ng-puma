@@ -65,11 +65,11 @@ namespace :puma do
       else
         if [ -e "#{fetch(:puma_config)}" ]; then
           echo "[DEBUG] Using config file: #{fetch(:puma_config)}"
-          cd #{fetch(:puma_root_path)} && #{fetch(:puma_cmd)} -q --daemon -e #{fetch(:puma_env)} -C #{fetch(:puma_config)}
+          cd #{fetch(:puma_root_path)} && #{fetch(:puma_cmd)} -q -e #{fetch(:puma_env)} -C #{fetch(:puma_config)}
           echo "[DEBUG] Puma start exit code: $?"
         else
           echo "[DEBUG] Config file not found, using command line options"
-          cd #{fetch(:puma_root_path)} && #{fetch(:puma_cmd)} -q --daemon -e #{fetch(:puma_env)} -b "unix://#{fetch(:puma_socket)}" #{puma_port_option} -S #{fetch(:puma_state)} --pidfile #{fetch(:puma_pid)} --control 'unix://#{fetch(:pumactl_socket)}' --redirect-stdout "#{fetch(:puma_stdout)}" --redirect-stderr "#{fetch(:puma_stderr)}"
+          cd #{fetch(:puma_root_path)} && #{fetch(:puma_cmd)} -q -e #{fetch(:puma_env)} -b "unix://#{fetch(:puma_socket)}" #{puma_port_option} -S #{fetch(:puma_state)} --pidfile #{fetch(:puma_pid)} --control 'unix://#{fetch(:pumactl_socket)}' --redirect-stdout "#{fetch(:puma_stdout)}" --redirect-stderr "#{fetch(:puma_stderr)}"
           echo "[DEBUG] Puma start exit code: $?"
         fi
       fi
@@ -174,11 +174,11 @@ namespace :puma do
         echo "[DEBUG] Puma is not running, starting fresh"
         if [ -e "#{fetch(:puma_config)}" ]; then
           echo "[DEBUG] Using config file for start"
-          cd #{fetch(:puma_root_path)} && #{fetch(:puma_cmd)} -q --daemon -e #{fetch(:puma_env)} -C #{fetch(:puma_config)}
+          cd #{fetch(:puma_root_path)} && #{fetch(:puma_cmd)} -q -e #{fetch(:puma_env)} -C #{fetch(:puma_config)}
           echo "[DEBUG] Start exit code: $?"
         else
           echo "[DEBUG] Using command line options for start"
-          cd #{fetch(:puma_root_path)} && #{fetch(:puma_cmd)} -q --daemon -e #{fetch(:puma_env)} -b "unix://#{fetch(:puma_socket)}" #{puma_port_option} -S #{fetch(:puma_state)} --pidfile #{fetch(:puma_pid)} --control 'unix://#{fetch(:pumactl_socket)}' --redirect-stdout "#{fetch(:puma_stdout)}" --redirect-stderr "#{fetch(:puma_stderr)}"
+          cd #{fetch(:puma_root_path)} && #{fetch(:puma_cmd)} -q -e #{fetch(:puma_env)} -b "unix://#{fetch(:puma_socket)}" #{puma_port_option} -S #{fetch(:puma_state)} --pidfile #{fetch(:puma_pid)} --control 'unix://#{fetch(:pumactl_socket)}' --redirect-stdout "#{fetch(:puma_stdout)}" --redirect-stderr "#{fetch(:puma_stderr)}"
           echo "[DEBUG] Start exit code: $?"
         fi
       fi
